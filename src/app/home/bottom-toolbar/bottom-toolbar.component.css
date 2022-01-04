@@ -1,0 +1,11 @@
+.bottom-toolbar{
+  position: sticky;
+  bottom: 0;
+}
+
+textarea{
+  outline-color: transparent;
+}
+mat-toolbar button{
+  margin-left: auto;
+}

@@ -1,0 +1,23 @@
+<!--<div style="min-height: 100%;"-->
+<!--*ngIf="(currentConversationMessages.length > 0) else noMsgRef">-->
+
+<div        [ngSwitch]="listState">
+  <div *ngSwitchCase="2">
+    <div
+            [ngClass]="{
+    'msg-left-container':(!setAlign(message.owner)),
+    'msg-right-container':setAlign(message.owner)
+    }"
+            #msgTemplateRef
+            *ngFor="let message of currentConversationMessages" >
+      <app-msg-bubble [data]="message" ></app-msg-bubble>
+    </div>
+  </div>
+  <div *ngSwitchCase="1">
+    <div style="height: 100%"><p> This Chat is empty... </p></div>
+  </div>
+  <div *ngSwitchCase="0" id="spinner">
+    <mat-spinner color="primary" ></mat-spinner>
+  </div>
+</div>
+

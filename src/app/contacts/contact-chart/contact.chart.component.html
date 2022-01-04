@@ -1,0 +1,68 @@
+<div class="options">
+    <mat-toolbar color="primary">
+        <mat-toolbar-row>
+            <span>
+            <button type="reset" mat-flat-button (click)="goHome()"> Go Home</button>
+        </span>
+            <span *ngIf="!createRoom" >
+            <button mat-flat-button (click)="switchCreateContact()" >Create Contact</button>
+        </span>
+            <span *ngIf="createRoom">
+            <button type="submit" form="_newRoomForm" mat-flat-button [disabled]="!newRoomForm.valid"  >Create Room</button>
+        </span>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div class="tight-container">
+        <div >
+            <div *ngIf="(createRoom && !createContact)" >
+                <div class="mat-error" *ngIf="!!newRoomForm.errors?.emptyGroupError">can not create group with no members</div>
+                <form class="spacer" [formGroup]="newRoomForm" (ngSubmit)="onSubmitCreateRoom()" id="_newRoomForm">
+                    <mat-form-field appearance="fill"  >
+                        <mat-label>New Group Name</mat-label >
+                        <input matInput placeholder="Choose a Name" formControlName="newGroupName">
+                        <mat-error> Please choose a valid Name before Submit</mat-error>
+                    </mat-form-field>
+                    <span >
+                        <button type="button" (click)="groupImagePickerRef.click()" mat-stroked-button matTooltip="Select a Group Image">Select Image...</button>
+                    </span>
+                    <span >
+                        <button type="button" *ngIf="!!newGroupImagePreview" (click)="onDiscardImage()" mat-stroked-button matTooltip="Cancel">Discard Image</button>
+                    </span>
+                </form>
+                <input
+                        #groupImagePickerRef
+                        (change)="onPickedGroupImage($event)"
+                        type="file"
+                >
+                <div>
+                    <img id="groupImage" *ngIf="!!newGroupImagePreview" [src]="newGroupImagePreview" alt="group image" matTooltip="group image">
+                </div>
+            </div>
+            <div class="mat-error" *ngIf="!!newContactForm.controls.newContactEmail.errors?.DuplicatedEmailError">this email is already registered as a contact</div>
+            <div class="mat-error" *ngIf="!!newContactForm.controls.newContactEmail.errors?.notFoundEmail">this email does not exist on this server</div>
+            <form (ngSubmit)="onSaveNewContact()" id="_newContactForm" [formGroup]="newContactForm" *ngIf="(createContact && !createRoom)" style="margin-bottom: 2px;">
+                <div class="spacer">
+                    <mat-form-field  appearance="fill"  >
+                        <mat-label>New Contact Name</mat-label>
+                        <input matInput placeholder="Choose a Name" formControlName="newContactName">
+                        <mat-error> Please choose a valid Name before Submit</mat-error>
+                    </mat-form-field  >
+                    <mat-form-field appearance="fill" >
+                        <mat-label>New Contact Email</mat-label>
+                        <input matInput placeholder="Choose an Email"  formControlName="newContactEmail" >
+                        <mat-error> Please choose a valid and registered Email before Submit</mat-error>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <button mat-stroked-button type="submit" form="_newContactForm" [disabled]="!newContactForm.valid"> Save Contact</button>
+                </div>
+            </form>
+            <mat-divider></mat-divider>
+        </div>
+    </div>
+</div>
+<div class="tight-container">
+    <!--contact array here-->
+    <app-contact-tile [selectable]="createRoom" (flag)="onFlagReceived($event)" ></app-contact-tile>
+
+</div>

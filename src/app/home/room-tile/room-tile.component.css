@@ -1,0 +1,7 @@
+mat-icon{
+    margin-left: auto;
+}
+
+.mat-card-avatar, mat-card-title, mat-icon {
+    cursor: pointer;
+}

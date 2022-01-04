@@ -1,0 +1,17 @@
+.width-align-bubble {
+  padding: 4px;
+}
+
+.msg-footer{
+  padding-right: 10px;
+  max-width: 35%;
+  text-align: right;
+  margin-left: auto;
+  margin-bottom: 1px;
+  font-size: xx-small;
+}
+
+.msg-content{
+  font-size: small;
+  word-wrap: break-word;
+}

@@ -1,0 +1,13 @@
+<mat-toolbar *ngIf="displayBar" class="bottom-toolbar"  color="primary">
+  <textarea
+          [mat-autosize]="true"
+          [matTextareaAutosize]="true"
+          [matAutosizeMinRows]="2"
+          [matAutosizeMaxRows]="3"
+          #msgContentRef
+          style="width: 85%"
+          placeholder="Text here..."></textarea> |
+  <button [disabled]="msgContentRef.value === ''" mat-icon-button (click)=" postMessage(msgContentRef)">
+    <mat-icon>send</mat-icon>
+  </button>
+</mat-toolbar>

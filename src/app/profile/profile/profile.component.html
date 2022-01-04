@@ -1,0 +1,144 @@
+<div class="container">
+  <mat-card (ngSubmit)="onSubmitProfile()" [formGroup]="profileForm">
+    <mat-card-header>
+      <img [src]="user?.photo" mat-card-avatar alt="profile image avatar">
+      <mat-card-title>{{user?.username}}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-accordion multi>
+        <!--        panel for username-->
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-icon matTooltip="field on edition" *ngIf="usernameOnEdition" > edit</mat-icon>
+            <span>{{profileForm.value.username}}</span>
+          </mat-expansion-panel-header>
+          <div>
+            <mat-form-field
+              *ngIf="usernameOnEdition"
+              appearance="standard">
+              <mat-label>Username:</mat-label>
+              <input formControlName="username" matNativeControl required>
+              <mat-error>
+                username should be only 5 to 25 alphanumeric characters
+              </mat-error>
+            </mat-form-field>
+            <!-- todo create method for click so can also be able to reset field-->
+            <button
+              type="button"
+              (click)="usernameOnEdition = !usernameOnEdition"
+              mat-stroked-button
+            >{{usernameOnEdition ? 'Cancel' : 'Edit'}}</button>
+          </div>
+        </mat-expansion-panel>
+        <!--        panel for profile image-->
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-icon matTooltip="field on edition" *ngIf="imageOnEdition" > edit</mat-icon>
+            <span>Image:</span>
+          </mat-expansion-panel-header>
+          <div>
+            <button mat-stroked-button
+                    *ngIf="imageOnEdition"
+                    type="button"
+                    (click)="filePickerRef.click()">
+              Click Here to Add a New Image
+            </button>
+            <input
+              #filePickerRef
+              (change)="onPickedImage($event)"
+              type="file"
+            >
+            <img
+              class="profile-preview"
+              alt="profile image"
+              mat-card-lg-image [src]="photoPreview">
+            <button
+              (click)="imageOnEdition = !imageOnEdition"
+              mat-stroked-button
+            >{{imageOnEdition ? 'Cancel' : 'Edit'}}</button>
+            <!-- todo create method for click-->
+          </div>
+        </mat-expansion-panel>
+        <!--        panel for email-->
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-icon matTooltip="field on edition" *ngIf="emailOnEdition" > edit</mat-icon>
+            <span>{{profileForm.value.email}}</span>
+          </mat-expansion-panel-header>
+          <div>
+            <span *ngIf="emailOnEdition">Since it is a sensitive field,
+              you need to type your current password to proceed changing email</span>
+            <mat-form-field
+              *ngIf="emailOnEdition"
+              appearance="standard">
+              <mat-label>Email:</mat-label>
+              <input formControlName="email" matNativeControl required>
+              <mat-error>
+                please use a valid email
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field
+              *ngIf="emailOnEdition"  appearance="standard" >
+              <mat-label>Password:</mat-label>
+              <input matNativeControl required formControlName="currentPasswordForChangeEmail">
+              <mat-error > wrong password, use at least 12 characters</mat-error>
+              <mat-hint class="mat-error" *ngIf="profileForm.errors?.passwordDoesNotMatchError">passwords does not match</mat-hint>
+            </mat-form-field>
+            <button
+              (click)="emailOnEdition = !emailOnEdition"
+              mat-stroked-button
+            >{{emailOnEdition ? 'Cancel' : 'Edit'}}</button>
+            <!-- todo create method for click-->
+          </div>
+        </mat-expansion-panel>
+        <!--        panel for password-->
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-icon matTooltip="field on edition" *ngIf="passwordOnEdition" > edit</mat-icon>
+            <span>
+               ******************
+            </span>
+          </mat-expansion-panel-header>
+          <div>
+            <mat-form-field
+              *ngIf="passwordOnEdition"
+              appearance="standard" >
+              <mat-label> Current Password:</mat-label>
+              <input matNativeControl required formControlName="currentPasswordForChangePassword">
+              <mat-error > wrong password, use at least 12 characters</mat-error>
+              <mat-hint class="mat-error" *ngIf="profileForm.errors?.passwordDoesNotMatchError">passwords does not match</mat-hint>
+            </mat-form-field>
+            <mat-form-field
+              *ngIf="passwordOnEdition" appearance="standard" >
+              <mat-label>Password:</mat-label>
+              <input matNativeControl required formControlName="password">
+              <mat-error > wrong password, use at least 12 characters</mat-error>
+              <mat-hint class="mat-error" *ngIf="profileForm.errors?.passwordDoesNotMatchError">passwords does not match</mat-hint>
+            </mat-form-field>
+            <mat-form-field
+              *ngIf="passwordOnEdition"  appearance="standard"  >
+              <mat-label>Confirm Password:</mat-label>
+              <input matNativeControl  required formControlName="passwordRepeat">
+              <mat-error > wrong password, use at least 12 characters</mat-error>
+              <mat-hint class="mat-error" *ngIf="profileForm.errors?.passwordDoesNotMatchError">passwords does not match</mat-hint>
+            </mat-form-field>
+            <button
+              (click)="passwordOnEdition = !passwordOnEdition"
+              mat-stroked-button
+            >{{passwordOnEdition ? 'Cancel' : 'Edit'}}</button>
+            <!--create method for click-->
+
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </mat-card-content>
+    <mat-card-actions style="width: max-content">
+      <button
+        *ngIf="profileForm.touched" type="reset" mat-stroked-button>Discard all Changes</button>
+      <button type="submit" mat-stroked-button [disabled]="!profileForm.valid">Update Profile</button>
+      <button type="button" mat-stroked-button (click)="onLeaveProfile()">Go Back</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+
+

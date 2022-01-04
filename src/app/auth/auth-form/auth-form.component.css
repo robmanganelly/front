@@ -1,0 +1,45 @@
+.full-width {
+  width: 100%;
+}
+
+.auth-card {
+  width: 30%;
+  min-width: 350px;
+  /*margin: 4% 30% auto 30%;*/
+  margin: 10% auto;
+}
+
+#auth{
+
+}
+
+.auth-spinner{
+  margin: 30% auto auto;
+  width: min-content
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.col {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.col:last-child {
+  margin-right: 0;
+}
+
+.form-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.tab-link{
+  cursor: pointer;
+  font-weight: bold;
+}
+

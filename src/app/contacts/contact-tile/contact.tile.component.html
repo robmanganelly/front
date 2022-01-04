@@ -1,0 +1,52 @@
+<div *ngIf="selectable">
+    <div *ngFor="let contact of contacts" id="tile-container">
+        <div id="selectable-container">
+            <mat-checkbox (change)="reportState(contact._id, $event.checked)"  color="primary"  ></mat-checkbox>
+            <img alt="contact image" [src]="contact.userId.photo" mat-card-avatar>
+            <span>{{contact.username | titlecase | truncate:25 }}</span>
+            <span>{{contact.email }}</span>
+        </div>
+        <mat-divider></mat-divider>
+
+
+    </div>
+</div>
+<mat-accordion *ngIf="!selectable">
+    <div *ngFor="let contact of contacts" >
+        <mat-expansion-panel >
+            <mat-expansion-panel-header>
+                <img alt="contact image" [src]="contact.userId.photo" mat-card-avatar>
+                <span>{{contact.username}}</span>
+            </mat-expansion-panel-header>
+            <div>
+                <div> {{contact.email}}</div>
+                <div id="contact-actions">
+                    <button
+                            (click)="button.action(contact)"
+                            *ngFor="let button of buttons"
+                            mat-icon-button>
+                        <mat-icon>{{button.icon}}</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </mat-expansion-panel>
+    </div>
+</mat-accordion>
+
+<!--todo move all this logic to a new component for making independent(not bulk) 'editable' -->
+<!--        <form-->
+<!--            #contactForm="ngForm"-->
+<!--            (reset)="onClickCancelEdition(contactForm)"-->
+<!--            (ngSubmit)="onClickConfirmEdition(contactForm)"-->
+<!--            *ngIf="editContact">-->
+<!--            <mat-form-field appearance="fill">-->
+<!--                <input-->
+<!--                        [(ngModel)]="contact.username"-->
+<!--                        [value]="contact.username" matInput-->
+<!--                        name="name">-->
+<!--            </mat-form-field>-->
+<!--            <div>-->
+<!--                <button mat-stroked-button type="submit"> Confirm</button>-->
+<!--                <button mat-stroked-button type="reset"> Cancel</button>-->
+<!--            </div>-->
+<!--        </form>-->

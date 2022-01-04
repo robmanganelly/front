@@ -1,0 +1,22 @@
+.msg-left-container{
+  margin-right: auto;
+  margin-bottom: 4px;
+  width: 60%;
+}
+.msg-right-container{
+  margin-left: auto;
+  margin-bottom: 4px;
+  width: 60%;
+}
+
+div div:last-child {
+  padding-bottom: 70px;
+}
+
+#spinner{
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}

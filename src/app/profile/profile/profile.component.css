@@ -1,0 +1,29 @@
+.container{
+  margin: 10px auto auto;
+  width: min-content
+}
+
+input[type="file"]{
+  visibility: hidden;
+}
+
+.profile-preview{
+  display: block;
+  width: auto;
+}
+
+div button {
+  display: block;
+}
+mat-card-actions button {
+  display: inline-flex;
+}
+
+mat-card-header img{
+  width: 40px;
+  border-radius: 20px;
+}
+
+mat-expansion-panel-header span{
+  margin-left: 10px;
+}

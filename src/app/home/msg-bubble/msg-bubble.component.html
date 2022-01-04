@@ -1,0 +1,17 @@
+<div class="width-align-bubble">
+  <mat-card>
+    <mat-card-content>
+      <p class="msg-content">{{data.text}}</p>
+    </mat-card-content>
+    <mat-card-footer>
+
+      <p class="msg-footer">sent at: {{data.sent | datetime}}
+        <span *ngIf="data.owner">
+          <mat-icon [inline]="true">{{
+            data.state === 0 ? "query_builder" : (data.state === 1 ? "done":"done_all")
+            }}</mat-icon>
+        </span>
+      </p>
+    </mat-card-footer>
+  </mat-card>
+</div>

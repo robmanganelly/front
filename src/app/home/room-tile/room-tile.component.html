@@ -1,0 +1,35 @@
+<div >
+    <mat-card *ngFor="let room of loadedRooms; let _index = index">
+        <mat-card-header>
+            <img
+                    alt="profile image"
+                    [matTooltip]="'click here to load chat'"
+                    mat-card-avatar
+                    [src]="room.roomPhoto"
+                    (click)="onClickCardNameAndAvatar(_index)">
+            <mat-card-title
+                    matBadgeSize="small" matBadgeOverlap="false"
+                    matBadgePosition="above after" matBadgeColor="primary"
+                    [matBadge]="room.pending" [matBadgeHidden]="!room.pending"
+                    [matTooltip]="'click here to load chat'"
+                    (click)="onClickCardNameAndAvatar(_index)" >
+                {{room.roomName | titlecase | truncate:17 }}
+            </mat-card-title>
+            <mat-icon
+                    *ngIf="_index > 0"
+                    [matTooltip]="'show options for this chat'"
+                    aria-label="show options for this chat"
+                    [matMenuTriggerFor]="menu" >more_vert</mat-icon>
+            <mat-menu #menu="matMenu">
+                <button (click)="onDeleteRoom(room)" mat-menu-item>
+                    <mat-icon>delete</mat-icon>
+                    <span>Delete</span>
+                </button>
+                <button (click)="onEditRoom(room)" mat-menu-item>
+                    <mat-icon>edit</mat-icon>
+                    <span>Edit</span>
+                </button>
+            </mat-menu>
+        </mat-card-header>
+    </mat-card>
+</div>

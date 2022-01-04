@@ -1,0 +1,77 @@
+<div id="auth" *ngIf="!isRequesting else spinnerTemplateRef">
+  <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
+    <mat-card class="auth-card">
+      <mat-card-header>
+        <mat-card-title>
+          <p>
+            {{isLogin? "Please login with your email and password": "Please fill and submit the form to create a new account"}}
+          </p>
+        </mat-card-title>
+        <mat-card-subtitle >
+          <p *ngIf="isLogin; else templateRefIsLoginSub" > or create an account
+            <a class="tab-link" (click)="this.changeTab()" >here</a> </p>
+          <ng-template #templateRefIsLoginSub>
+            <p>Or login <a class="tab-link" (click)="this.changeTab()" >here</a></p>
+          </ng-template>
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content >
+        <div  *ngIf="!retrySubmit else errorBannerTemplateRef"></div>
+        <div class="form-col" >
+          <mat-form-field class="full-width" appearance="outline" *ngIf="!isLogin" >
+            <mat-label >Username:</mat-label>
+            <input matNativeControl required formControlName="username">
+            <mat-error>
+              username should be only 5 to 25 alphanumeric characters
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="full-width" appearance="outline" >
+            <mat-label>Email:</mat-label>
+            <input matNativeControl required formControlName="email">
+            <mat-error>email is not valid, please check it  </mat-error>
+          </mat-form-field>
+          <mat-form-field class="full-width" appearance="outline" >
+            <mat-label>Password:</mat-label>
+            <input matNativeControl required formControlName="password">
+            <mat-error > wrong password, use at least 12 characters</mat-error>
+            <mat-hint class="mat-error" *ngIf="authForm.errors?.passwordDoesNotMatchError">passwords does not match</mat-hint>
+          </mat-form-field>
+          <mat-form-field class="full-width" appearance="outline" *ngIf="!isLogin" >
+            <mat-label>Confirm Password:</mat-label>
+            <input matNativeControl  required formControlName="passwordRepeat">
+            <mat-error > wrong password, use at least 12 characters</mat-error>
+            <mat-hint class="mat-error" *ngIf="authForm.errors?.passwordDoesNotMatchError">passwords does not match</mat-hint>
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+      <mat-card-actions align="end">
+        <button
+          type="submit"
+          [disabled]="!authForm.valid"
+          mat-raised-button color="primary" >
+          <span>{{isLogin? "Login":"Create Account"}}</span>
+        </button>
+        <button
+          type="button"
+          [routerLink]="'/recovery'"
+          mat-flat-button>
+          <mat-icon>help</mat-icon>
+          Password Recovery
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+  <footer style="width: 10%; margin: auto" >
+    <span> &copy;2021 </span>
+  </footer>
+</div>
+<ng-template #spinnerTemplateRef >
+  <div class="auth-spinner">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>
+<ng-template #errorBannerTemplateRef>
+  <div class="mat-error">
+    <p> Error: {{bannerMessage}} </p>
+  </div>
+</ng-template>

@@ -1,0 +1,23 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+img.mat-card-avatar {
+   margin-right: 10px;
+   width: 30px;
+   border-radius: 15px;
+  /*margin-left: 5px;*/
+  /*margin-top: 5px;*/
+}
+
+.snack{
+   max-width: min-content;
+   background-color: rgba(0%,100%,0%,0.3);
+   color: lightgreen;
+}
+
+.snack-error {
+   background-color: rgba(100%, 0%, 0%, 0.3);
+   color: darkred;
+}

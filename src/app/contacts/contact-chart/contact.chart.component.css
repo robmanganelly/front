@@ -1,0 +1,43 @@
+.tight-container{
+    width: min-content;
+    min-width: 55%;
+    margin: 1% auto auto auto;
+}
+
+
+
+/*mat-toolbar,*/
+.options{
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: white; /* move this style to a different selector if uncomment mat-toolbar*/
+}
+
+
+mat-toolbar-row span {
+    margin-right: 20px;
+}
+
+.spacer{
+    display: flex;
+    justify-content: space-between;
+}
+
+input[type="file"]{
+    visibility: hidden;
+}
+
+div.spacer>span>button.mat-stroked-button{
+    align-self: center;
+    margin-left: 4px;
+}
+
+div.spacer>span{
+    display: flex;
+}
+
+#groupImage{
+    max-width: 50%;
+    min-width: 20%;
+}

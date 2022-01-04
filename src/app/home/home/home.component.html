@@ -1,0 +1,70 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false">
+    <app-side-toolbar></app-side-toolbar>
+    <mat-nav-list>
+      <!-- rooms goes here      -->
+      <app-room-tile></app-room-tile>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <!-- main content  -->
+    <mat-toolbar color="primary" class="mat-top-toolbar">
+      <mat-toolbar-row>
+        <button
+                type="button"
+                aria-label="Toggle sidenav"
+                mat-icon-button
+                (click)="drawer.toggle()"
+                *ngIf="isHandset$ | async">
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+        <!-- Place for the opened chat image and name
+        change the span element to contain current opened room and room name-->
+        <span *ngIf="emptyChat" >MEAN Chat</span>
+        <span *ngIf="!emptyChat">
+          <img [src]="chatPhoto" mat-card-avatar >
+          <span style="margin-left: 5px;" >  {{selectedChat | truncate:25 |titlecase  }}</span>
+        </span>
+
+      </mat-toolbar-row>
+    </mat-toolbar>
+    <!-- messages goes Here -->
+      <div class="msg-list">
+        <app-msg-list *ngIf="!emptyChat else emptyChatCard"></app-msg-list>
+      </div>
+      <app-bottom-toolbar></app-bottom-toolbar>
+    <!--    content ends here-->
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<ng-template #emptyChatCard>
+  <mat-card style="width: 50%; margin: 80px auto">
+    <mat-card-header>
+      <mat-card-title>
+        Hi {{currentUser?.username | titlecase}}
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>Before start chatting you must add some contacts to talk with.</p>
+      <span>you can start clicking here </span>
+      <span>
+        <button mat-icon-button (click)="addFirstContact()">
+          <mat-icon >contacts</mat-icon>
+        </button>
+      </span>
+      <p>And:</p>
+      <span>When you finish, you can click the option chat: </span>
+        <span>
+          <mat-icon>chat</mat-icon>
+        </span><span> and that's all</span>
+      <p>You can also create groups by clicking the options</p> <span>
+        <mat-icon>more_vert</mat-icon>
+      </span> <span>and click the option</span>
+      <span><mat-icon>add_circle_outline</mat-icon></span>
+    </mat-card-content>
+
+  </mat-card>
+</ng-template>

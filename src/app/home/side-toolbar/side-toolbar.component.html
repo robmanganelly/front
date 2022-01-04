@@ -1,0 +1,21 @@
+<mat-toolbar>
+  <mat-toolbar-row>
+    <img
+      mat-card-avatar [src]="user.photo"
+      alt="user profile avatar image">
+    {{ user.username  | truncate | titlecase}}
+    <button
+            *ngFor="let mbutton of mainButtons" mat-icon-button
+            [matTooltip]="mbutton.tooltip"
+            (click)="mbutton.action()">
+      <mat-icon>{{mbutton.icon}}</mat-icon>
+    </button>
+  </mat-toolbar-row>
+  <mat-toolbar-row *ngIf="!hideOptions" >
+    <button *ngFor="let button of moreButtons" mat-icon-button
+            [matTooltip]="button.tooltip"
+            (click)="button.action()">
+      <mat-icon >{{button.icon }}</mat-icon>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>
